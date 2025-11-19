@@ -10,9 +10,10 @@ NodeExporter 9100,
 Grafana 3000, 
 Proxy 80.
 
-# Chạy container
-docker compose up - d hoặc docker compose up --build
-
+# Chạy container:
+docker compose build --no-cache
+docker compose up -d 
+docker ps
 
 # Config Docker desktop để build
 Sửa file cấu hình Docker daemon (cách tốt nhất)
@@ -49,4 +50,10 @@ https://phoenixnap.com/kb/dig-windows
 winget search bind
 winget install ISC.Bind
 Tắt hết terminal và gõ: dig -v
-==> dig @127.0.0.1 -p 1053 web-frontend-server.cloud.local +short
+==> 
+Power shell: dig --% @127.0.0.1 -p 1053 web-frontend-server.cloud.local +short
+Bash/Command Promt: dig @127.0.0.1 -p 1053 web-frontend-server.cloud.local +short
+Kết quả: 10.10.0.10
+
+# Test DB
+docker run -it --rm --network cloud-net mysql:8 \sh -lc 'mysql -h relational-database-server -uroot -proot -e "USE minicloud; SHOW TABLES; SELECT * FROM notes;"'
