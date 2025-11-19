@@ -57,3 +57,12 @@ Kết quả: 10.10.0.10
 
 # Test DB
 docker run -it --rm --network cloud-net mysql:8 \sh -lc 'mysql -h relational-database-server -uroot -proot -e "USE minicloud; SHOW TABLES; SELECT * FROM notes;"'
+
+# Ping all bằng Powershell
+$hosts = "web-frontend-server","application-backend-server","db","keycloak","minio","prometheus","grafana","internal-dns-server"
+
+foreach ($h in $hosts) {
+  Write-Host "===== Pinging $h from application-backend-server ====="
+  docker exec application-backend-server ping -c 3 $h
+  Write-Host ""
+}
