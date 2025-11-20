@@ -6,6 +6,14 @@ services:
     container_name: web-frontend-server
     networks: [cloud-net]
     ports: [ "8080:80" ]
+  web-frontend-server-2:
+    build:
+      context: ./web-frontend-server
+      dockerfile: Dockerfile.web2
+    image: thuyenkietkiet/web2:dev
+    container_name: web-frontend-server-2
+    networks: [cloud-net]
+    ports: [ "8082:80" ]
 
   application-backend-server:
     build: ./application-backend-server
@@ -16,6 +24,9 @@ services:
     environment:
       OIDC_ISSUER: "http://authentication-identity-server:8080/realms/master"
       OIDC_AUDIENCE: "myapp"
+    volumes:
+      - ./application-backend-server/students.json:/app/students.json:ro
+      - ./application-backend-server/app.py:/app/app.py:ro
   relational-database-server:
     image: mariadb:11
     container_name: relational-database-server

@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "Trần Minh Thuyên", "major": "IT", "gpa": 3.7 },
+  { "id": 2, "name": "Nguyễn Tuấn Kiệt", "major": "IT", "gpa": 3.5 },
+  { "id": 3, "name": "Nguyễn Tuấn Kiệt", "major": "IT", "gpa": 3.6 },
+  { "id": 4, "name": "Võ Duy Khánh", "major": "Financial Banking", "gpa": 3.8 },
+  { "id": 5, "name": "Bùi Quang Huy", "major": "Accounting", "gpa": 4.0 }
+]
