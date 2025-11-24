@@ -6,6 +6,14 @@ services:
     container_name: web-frontend-server
     networks: [cloud-net]
     ports: [ "8080:80" ]
+  web-frontend-server-2:
+    build:
+      context: ./web-frontend-server
+      dockerfile: Dockerfile.web2
+    image: thuyenkietkiet/web2:dev
+    container_name: web-frontend-server-2
+    networks: [cloud-net]
+    ports: [ "8082:80" ]
 
   application-backend-server:
     build: ./application-backend-server
@@ -16,6 +24,9 @@ services:
     environment:
       OIDC_ISSUER: "http://authentication-identity-server:8080/realms/master"
       OIDC_AUDIENCE: "myapp"
+    volumes:
+      - ./application-backend-server/students.json:/app/students.json:ro
+      - ./application-backend-server/app.py:/app/app.py:ro
   relational-database-server:
     image: mariadb:11
     container_name: relational-database-server
@@ -58,21 +69,46 @@ services:
   internal-dns-server:
     image: internetsystemsconsortium/bind9:9.18
     container_name: internal-dns-server
-    ports:  
-      - "1153:53/udp"
-      - "1153:53/tcp"
-      # - "1053:53/udp"
-      # - "1053:53/tcp"
+
+    # ÉP named log ra stdout để docker thấy lỗi
+    command: ["-u", "bind", "-f", "-g", "-c", "/etc/bind/named.conf"]
+
+    ports:
+      - "1053:53/udp"
+      - "1053:53/tcp"
+
+    # CHO PHÉP GHI (bỏ :ro) để tránh lỗi permission vớ vẩn
     volumes:
-      - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
-      - ./internal-dns-server/named.conf.options:/etc/bind/named.conf.options:ro
-      - ./internal-dns-server/named.conf.local:/etc/bind/named.conf.local:ro
-      - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
-    tmpfs:
-      - /run/named
-      - /var/cache/bind
-    restart: unless-stopped
+      - ./internal-dns-server:/etc/bind
+
+    # Tạm bỏ tmpfs cho đơn giản (có cũng được, nhưng mình bỏ để giảm biến số)
+    # tmpfs:
+    #   - /run/named
+    #   - /var/cache/bind
+
+    # Tạm thời KHÔNG restart, để nó crash một lần rồi dừng, mình xem lỗi
+    restart: "no"
     networks: [cloud-net]
+
+  # internal-dns-server:
+  #   image: internetsystemsconsortium/bind9:9.18
+  #   container_name: internal-dns-server
+  #   ports:  
+  #     # - "1153:53/udp"
+  #     # - "1153:53/tcp"
+  #     - "1053:53/udp"
+  #     - "1053:53/tcp"
+  #   volumes:
+  #     - ./internal-dns-server:/etc/bind:ro
+  #     # - ./internal-dns-server/named.conf:/etc/bind/named.conf:ro
+  #     # - ./internal-dns-server/named.conf.options:/etc/bind/named.conf.options:ro
+  #     # - ./internal-dns-server/named.conf.local:/etc/bind/named.conf.local:ro
+  #     # - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
+  #   tmpfs:
+  #     - /run/named
+  #     - /var/cache/bind
+  #   restart: unless-stopped
+  #   networks: [cloud-net]
 
   monitoring-node-exporter-server:
     image: prom/node-exporter:latest
