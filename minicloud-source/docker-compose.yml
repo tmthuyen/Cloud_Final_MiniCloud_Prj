@@ -5,7 +5,7 @@ services:
     image: thuyenkietkiet/web:dev
     container_name: web-frontend-server
     networks: [cloud-net]
-    ports: [ "8080:80" ]
+    ports: [ "8080:90" ]
 
   application-backend-server:
     build: ./application-backend-server
@@ -21,10 +21,11 @@ services:
     container_name: relational-database-server
     environment:
       MARIADB_ROOT_PASSWORD: root
+      MARIADB_ROOT_HOST: "%"
       MARIADB_DATABASE: minicloud
     volumes:
     - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
-    ports: [ "3320:3306" ]
+    ports: [ "3306:3306" ]
     networks: [cloud-net]
     
   authentication-identity-server:
@@ -99,7 +100,7 @@ services:
     - web-frontend-server
     - application-backend-server
     - authentication-identity-server
-    ports: [ "80:80" ]
+    ports: [ "90:90" ]
     volumes:
     - ./api-gateway-proxy-server/nginx.conf:/etc/nginx/nginx.conf:ro
     networks: [cloud-net]
