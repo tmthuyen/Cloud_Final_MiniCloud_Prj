@@ -32,9 +32,11 @@ services:
     container_name: relational-database-server
     environment:
       MARIADB_ROOT_PASSWORD: root
+      MARIADB_ROOT_HOST: "%"
       MARIADB_DATABASE: minicloud
     volumes:
     - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
+    # ports: [ "3306:3306" ]
     ports: [ "3320:3306" ]
     networks: [cloud-net]
     
