@@ -8,8 +8,8 @@ $TTL 1H
 
     IN NS   ns1.cloud.local.
 
-ns1                      IN A   127.0.0.1
+ns1                     IN A   127.0.0.1
 web-frontend-server     IN A   10.10.0.10
-app-backend.cloud.local IN A 10.10.10.20
-minio.cloud.local IN A 10.10.10.30
-keycloak.cloud.local IN A 10.10.10.30
+app-backend             IN A 10.10.10.20
+minio                   IN A 10.10.10.30
+keycloak                IN A 10.10.10.40

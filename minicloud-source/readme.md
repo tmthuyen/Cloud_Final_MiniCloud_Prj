@@ -139,6 +139,14 @@ curl -H "Authorization: Bearer $TOKEN" \
 # hoặc nếu đi qua gateway:
 # curl -H "Authorization: Bearer $TOKEN" http://localhost/api/secure
 
+# Mục 6
+- Power shell: 
+dig --% @127.0.0.1 -p 1053 web-frontend-server.cloud.local +short
+Bash/Command Prompt: 
+dig @127.0.0.1 -p 1053 application-backend.cloud.local +short => 10.10.10.20
+dig @127.0.0.1 -p 1053 minio.cloud.local +short => 10.10.10.30
+dig @127.0.0.1 -p 1053 keycloak.cloud.local +short => 10.10.10.40
+
 
 # Mục 9
 - http://localhost/student/
