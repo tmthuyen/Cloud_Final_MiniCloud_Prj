@@ -11,7 +11,7 @@ Grafana 3000,
 Proxy 80.
 
 # Chạy container
-docker compose up - d hoặc docker compose up --build
+docker compose up -d hoặc docker compose up --build
 
 
 # Config Docker desktop để build
