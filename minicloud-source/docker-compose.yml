@@ -6,11 +6,8 @@ services:
     container_name: web-frontend-server
     networks: [cloud-net]
     ports: [ "8080:80" ]
-<<<<<<< HEAD
-=======
     volumes:
       - ./web-frontend-server/conf.default:/etc/nginx/conf.d/default.conf:ro
->>>>>>> c4b744799ca40d4f2d0b9c7ef08d28a12a625104
   web-frontend-server-2:
     build:
       context: ./web-frontend-server
@@ -19,11 +16,8 @@ services:
     container_name: web-frontend-server-2
     networks: [cloud-net]
     ports: [ "8082:80" ]
-<<<<<<< HEAD
-=======
     volumes:
       - ./web-frontend-server/conf.default:/etc/nginx/conf.d/default.conf:ro
->>>>>>> c4b744799ca40d4f2d0b9c7ef08d28a12a625104
 
   application-backend-server:
     build: ./application-backend-server
