@@ -12,4 +12,8 @@ ns1                     IN A   127.0.0.1
 web-frontend-server     IN A   10.10.0.10
 app-backend             IN A 10.10.10.20
 minio                   IN A 10.10.10.30
+<<<<<<< HEAD
 keycloak                IN A 10.10.10.40
+=======
+keycloak                IN A 10.10.10.40
+>>>>>>> c4b744799ca40d4f2d0b9c7ef08d28a12a625104
