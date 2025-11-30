@@ -9,4 +9,10 @@ server {
     index index.html;
     autoindex off;
   }
+  location /metrics {
+      default_type text/plain;
+      return 200 "web_frontend_server_up 1\n";
+      add_header Content-Type text/plain;
+  }
+
 }
