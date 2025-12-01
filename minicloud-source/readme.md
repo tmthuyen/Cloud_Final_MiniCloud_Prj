@@ -154,3 +154,16 @@ dig @127.0.0.1 -p 1053 keycloak.cloud.local +short => 10.10.10.40
 
 # Mục 10
 - curl http://localhost/
+
+
+
+# build image web (Đứng tại root cửa source folder)
+- docker compose build web-frontend-server web-frontend-server-2 application-backend-server
+- Hoặc: docker compose build
+- Kiểm tra: docker images | grep thuyenkietkiet
+
+- Sửa tên image: docker tag thuyenkietkiet/web:dev tranthuyendocker/web:dev
+
+- Push image vô account: docker push tranthuyendocker/web:dev
+
+- Tên image trong docker-compose.yml (trên EC2) em có thể dùng: image: tranthuyendocker/web:dev
