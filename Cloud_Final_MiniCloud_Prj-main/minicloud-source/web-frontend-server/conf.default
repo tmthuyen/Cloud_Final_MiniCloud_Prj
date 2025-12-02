@@ -1,0 +1,18 @@
+server {
+  listen 80;
+  server_name _;
+  root /usr/share/nginx/html;
+  index index.html;
+  location / { try_files $uri $uri/ =404; }
+  location ^~ /blog/ {
+    alias /usr/share/nginx/html/blog/;
+    index index.html;
+    autoindex off;
+  }
+  location /metrics {
+      default_type text/plain;
+      return 200 "web_frontend_server_up 1\n";
+      add_header Content-Type text/plain;
+  }
+
+}
