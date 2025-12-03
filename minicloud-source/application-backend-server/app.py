@@ -3,20 +3,11 @@ import time, requests, os
 import json
 import pymysql
 from jose import jwt
-# ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identityserver:8080/realms/master")
-# AUDIENCE = os.getenv("OIDC_AUDIENCE", "myapp")
-# ISSUER = "http://localhost:8081/realms/realm_52300070"
-# AUDIENCE = "account"
-# JWKS_URL = f"{ISSUER}/protocol/openid-connect/certs"
-# _JWKS = None; _TS = 0
-# def get_jwks():
-#   global _JWKS, _TS
-#   now = time.time()
-#   if not _JWKS or now - _TS > 600:
-#     _JWKS = requests.get(JWKS_URL, timeout=5).json()
-#     _TS = now
-#   return _JWKS
 
+
+# ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identityserver:8080/realms/realm_52300070")
+# AUDIENCE = os.getenv("OIDC_AUDIENCE", "account")
+# print("Using OIDC ISSUER:", ISSUER)
 ISSUER = "http://localhost:8081/realms/realm_52300070"
 AUDIENCE = "account"
 JWKS_URL = "http://authentication-identity-server:8080/realms/realm_52300070/protocol/openid-connect/certs"
@@ -68,17 +59,6 @@ app = Flask(__name__)
 def hello():
   return jsonify(message="Hello from App Server!")
 
-# @app.get("/secure")
-# def secure():
-#   auth = request.headers.get("Authorization","")
-#   if not auth.startswith("Bearer "):
-#     return jsonify(error="Missing Bearer token"), 401
-#   token = auth.split(" ",1)[1]
-#   try:
-#     payload = jwt.decode(token, key=get_jwks(), algorithms=["RS256"], audience=AUDIENCE, issuer=ISSUER)
-#     return jsonify(message="Secure resource OK", preferred_username=payload.get("preferred_username"))
-#   except Exception as e:
-#     return jsonify(error=str(e)), 401
 @app.get("/secure")
 def secure():
     auth = request.headers.get("Authorization", "")

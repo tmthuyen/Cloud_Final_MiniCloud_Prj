@@ -2,8 +2,7 @@ networks: { cloud-net: { name: cloud-net } }
 services:
   web-frontend-server:
     build: ./web-frontend-server # Tự build lại image từ Dockerfile, tắt nếu muốn pull từ Docker Hub
-    image: tranthuyendocker/myminicloud-web:dev # đã build tên mới
-    # image: thuyenkietkiet/web:dev
+    image: tranthuyendocker/myminicloud-web:dev # đã build tên mới 
     container_name: web-frontend-server
     networks: [cloud-net]
     ports: [ "8080:80" ]
@@ -30,8 +29,8 @@ services:
     ports: [ "8085:8081" ]
     restart: unless-stopped
     environment:
-      OIDC_ISSUER: "http://authentication-identity-server:8080/realms/master"
-      OIDC_AUDIENCE: "myapp"
+      OIDC_ISSUER: "http://authentication-identityserver:8080/realms/realm_52300070"
+      OIDC_AUDIENCE: "account"
     volumes:
       - ./application-backend-server/students.json:/app/students.json:ro
       - ./application-backend-server/app.py:/app/app.py:ro
